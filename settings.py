@@ -4,13 +4,12 @@ import logging
 import sys
 import askbot
 import site
-import os
-from path import path
 
 #this line is added so that we can import pre-packaged askbot dependencies
 ASKBOT_ROOT = os.path.abspath(os.path.dirname(askbot.__file__))
 site.addsitedir(os.path.join(ASKBOT_ROOT, 'deps'))
 
+DEBUG = True#set to True to enable debugging
 TEMPLATE_DEBUG = False#keep false when debugging jinja2 templates
 INTERNAL_IPS = ('127.0.0.1',)
 
@@ -59,7 +58,7 @@ IMAP_USE_TLS = False
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'Europe/Paris'
+TIME_ZONE = 'America/Chicago'
 
 SITE_ID = 1
 
@@ -68,15 +67,14 @@ SITE_ID = 1
 USE_I18N = True
 LANGUAGE_CODE = 'en'
 
-PROJECT_ROOT = path(__file__).abspath().parent.parent
-
 # Absolute path to the directory that holds uploaded media
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = PROJECT_ROOT / 'askbot' / 'upfiles'
+MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'askbot', 'upfiles')
 MEDIA_URL = '/upfiles/'
 STATIC_URL = '/m/'#this must be different from MEDIA_URL
 
-STATIC_ROOT = PROJECT_ROOT / 'static'
+PROJECT_ROOT = os.path.dirname(__file__)
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -84,8 +82,7 @@ STATIC_ROOT = PROJECT_ROOT / 'static'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 # Make up some unique string, and don't share it with anybody.
-# Set SECRET_KEY in an environment value, not here.
-SECRET_KEY = os.environ.get('SECRET_KEY', '')
+SECRET_KEY = '6623f34545f4c5f969c36c80702eb6a4'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -116,11 +113,13 @@ MIDDLEWARE_CLASSES = (
     'askbot.middleware.spaceless.SpacelessMiddleware',
 )
 
-ROOT_URLCONF = PROJECT_ROOT.basename() + '.urls'
+
+ROOT_URLCONF = os.path.basename(os.path.dirname(__file__)) + '.urls'
+
 
 #UPLOAD SETTINGS
 FILE_UPLOAD_TEMP_DIR = os.path.join(
-                                PROJECT_ROOT, 
+                                os.path.dirname(__file__), 
                                 'tmp'
                             ).replace('\\','/')
 

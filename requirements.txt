@@ -1,4 +1,3 @@
 -r askbot_requirements.txt
 psycopg2
 dj-database-url
-path.py

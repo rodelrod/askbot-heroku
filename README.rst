@@ -1,19 +1,14 @@
 ===================
-Putsches
+Askbot - Q&A forum
 ===================
 
-Project for a web community to debate and intervene on matters of civic interest.
+This is Askbot project - open source Q&A system, like StackOverflow, Yahoo Answers and some others
 
-Putsches is based on the code of Askbot, an open source Q&A system created by
-Evgeny Fadeev on the basis of CNPROG and OSQA. In fact, at this point Putsches is 
-little more than a Askbot fork configured for Heroku deployment.
+Demo site is http://askbot.org
 
-To deploy in heroku:
+All documentation is in the directory askbot/doc
 
-1. Add the heroku repository as a git remote and push
-2. ``syncdb`` and ``migrate``
-3. Set environment variables in heroku::
-   $ heroku config:set DJANGO_SETTINGS_MODULE=app.settings.prod
-   $ heroku config:set SECRET_KEY="some_random_value"
+askbot-devel repository is open to anyone who wants to help develop Askbot - just drop us a note
 
-To get a value for SECRET_KEY you can use the linux utility ``apg``.
+Askbot is based on code of CNPROG, originally created by Mike Chen 
+and Sailing Cai and some code written for OSQA
