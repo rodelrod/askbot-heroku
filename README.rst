@@ -1,14 +1,28 @@
-===================
-Askbot - Q&A forum
-===================
+==========================
+Askbot-Heroku - Q&A forum
+==========================
 
-This is Askbot project - open source Q&A system, like StackOverflow, Yahoo Answers and some others
+This is a fork of the Askbot project - open source Q&A system, like StackOverflow, Yahoo Answers and some others.
+
+This fork consists of an initialized Askbot installation containing the necessary modifications to deploy in heroku with a PostgreSQL database.
+
+To deploy in heroku:
+
+1. Add the heroku repository as a git remote and push
+2. ``syncdb`` and ``migrate``
+3. Set environment variables in heroku::
+   $ heroku config:set DJANGO_SETTINGS_MODULE=app.settings.prod
+   $ heroku config:set SECRET_KEY="some_random_value"
+
+To get a value for SECRET_KEY you can use the linux utility ``apg``.
+
+I will try to keep this repository synced with https://github.com/ASKBOT/askbot-devel.git but this is not guaranteed.
+
+The rest of this README comes from the original project.
 
 Demo site is http://askbot.org
 
 All documentation is in the directory askbot/doc
-
-askbot-devel repository is open to anyone who wants to help develop Askbot - just drop us a note
 
 Askbot is based on code of CNPROG, originally created by Mike Chen 
 and Sailing Cai and some code written for OSQA
