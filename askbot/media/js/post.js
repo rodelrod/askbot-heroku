@@ -2073,18 +2073,25 @@ var socialSharing = function(){
     var share_page = function(service_name){
         if (SERVICE_DATA[service_name]){
             var url = SERVICE_DATA[service_name]['url'];
+            url = url.replace('{TEXT}', TEXT);
+            url = url.replace('{URL}', URL);
+            var params = SERVICE_DATA[service_name]['params'];
+            if(!window.open(url, "sharing", params)){
+                window.location.href=url;
+            }
+            return false;
+            //@todo: change to some other url shortening service
             $.ajax({
-                async: false,
                 url: "http://json-tinyurl.appspot.com/?&callback=?",
                 dataType: "json",
                 data: {'url':URL},
-                success: function(data){
+                success: function(data) {
                     url = url.replace('{URL}', data.tinyurl);
                 },
-                error: function(data){
+                error: function(xhr, opts, error) {
                     url = url.replace('{URL}', URL);
                 },
-                complete: function(data){
+                complete: function(data) {
                     url = url.replace('{TEXT}', TEXT);
                     var params = SERVICE_DATA[service_name]['params'];
                     if(!window.open(url, "sharing", params)){
@@ -2098,7 +2105,14 @@ var socialSharing = function(){
     return {
         init: function(){
             URL = window.location.href;
+            var urlBits = URL.split('/');
+            URL = urlBits.slice(0, -2).join('/') + '/';
             TEXT = escape($('h1 > a').html());
+            var hashtag = encodeURIComponent(
+                                askbot['settings']['sharingSuffixText']
+                            );
+            TEXT = TEXT.substr(0, 134 - URL.length - hashtag.length);
+            TEXT = TEXT + '... ' + hashtag;
             var fb = $('a.facebook-share')
             var tw = $('a.twitter-share');
             var ln = $('a.linkedin-share');
@@ -2107,10 +2121,10 @@ var socialSharing = function(){
             copyAltToTitle(tw);
             copyAltToTitle(ln);
             copyAltToTitle(ica);
-            setupButtonEventHandlers(fb, function(){share_page("facebook")});
-            setupButtonEventHandlers(tw, function(){share_page("twitter")});
-            setupButtonEventHandlers(ln, function(){share_page("linkedin")});
-            setupButtonEventHandlers(ica, function(){share_page("identica")});
+            setupButtonEventHandlers(fb, function(){ share_page("facebook") });
+            setupButtonEventHandlers(tw, function(){ share_page("twitter") });
+            setupButtonEventHandlers(ln, function(){ share_page("linkedin") });
+            setupButtonEventHandlers(ica, function(){ share_page("identica") });
         }
     }
 }();

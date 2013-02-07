@@ -814,6 +814,10 @@ def test_multilingual():
 
     errors = list()
 
+    django_version = django.VERSION
+    if is_multilang and django_version[0] == 1 and django_version[1] < 4:
+        errors.append('ASKBOT_MULTILINGUAL=True works only with django >= 1.4')
+
     if is_multilang:
         middleware = 'django.middleware.locale.LocaleMiddleware' 
         if middleware not in django_settings.MIDDLEWARE_CLASSES:
@@ -821,10 +825,6 @@ def test_multilingual():
                 "add 'django.middleware.locale.LocaleMiddleware' to your MIDDLEWARE_CLASSES "
                 "if you want a multilingual setup"
             )
-
-    django_version = django.VERSION
-    if is_multilang and django_version[0] == 1 and django_version[1] < 4:
-        errors.append('ASKBOT_MULTILINGUAL=True works only with django >= 1.4')
 
     trans_url = getattr(django_settings, 'ASKBOT_TRANSLATE_URL', False)
     if is_multilang and trans_url:

@@ -527,7 +527,7 @@ body.user-messages {
         list-style: none;
         overflow: auto;
         padding: 0 0 10px 0;
-        margin: 0 0 20px 0;
+        margin: 0;
         position: relative;
         li {
             padding: 5px 10px;
@@ -900,14 +900,17 @@ body.anon {
 }
 /* tips and markdown help are widgets for ask template */
 
-#tips{
-    li{
-       color:@info-text;
-       font-size:13px;
-       list-style-image: url(../images/tips.png);
-    }
-    a{
-        font-size:16px;
+.question-instructions {
+    background: #e9e9e1;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    .box-shadow(1px, 1px, 3px, #999);
+    padding: 7px 0 1px 2px;
+    margin-bottom: 10px;
+    width: 100%;
+    ul {
+        margin: 0 0 0 27px;
     }
 }
 
@@ -1452,16 +1455,18 @@ ul#related-tags li {
         padding-right: 20px;
     }
     td.per-thread-controls {
-        width: 120px;/* 20px more to compensate for the padding */
+        width: 160px;/* 20px more to compensate for the padding */
         height: 30px;
         button {
             display: none;
         }
     }
-    th.decision-col,
     th.tags-col,
     th.users-col {
         width: 100px;
+    }
+    th.decision-col {
+        width: 140px;
     }
     tr.per-tag-controls {
         height: 30px;
@@ -1609,6 +1614,9 @@ ul#related-tags li {
         width: 100%;
         max-width: 395px;
     }
+    .lang-selector {
+        margin: 1px 0 0 5px;
+    }
 }
 
 .ask-page,
@@ -1752,7 +1760,6 @@ ul#related-tags li {
 
 .wmd-container {
     border:#cce6ec 3px solid;
-    min-height: 250px;
     textarea {
         border: none;
     }
@@ -3778,6 +3785,10 @@ p.signup_p {
     clear:both;
     line-height:18px;
     margin-bottom:15px;
+    h2 {
+        margin: 0;
+        padding: 0;
+    }
 }
 
 #responses div.face {
@@ -3789,7 +3800,7 @@ p.signup_p {
 }
 
 .response-parent {
-    margin-top: 18px;
+    margin-top: 8px;
 }
 
 .response-parent strong{
@@ -3804,9 +3815,6 @@ p.signup_p {
 
 #responses input {
     float:left;
-}
-#re_tools {
-    margin-bottom:10px;
 }
 #re_sections {
     margin-bottom:6px;

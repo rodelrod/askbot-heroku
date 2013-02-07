@@ -29,3 +29,17 @@ settings.register(
         update_callback = empty_cache_callback
     )
 )
+
+settings.register(
+    BooleanValue(
+        MODERATION,
+        'ENABLE_TAG_MODERATION',
+        default = False,
+        description = _('Enable tag moderation'),
+        help_text = _(
+            'If enabled, any new tags will not be applied '
+            'to the questions, but emailed to the moderators. '
+            'To use this feature, tags must be optional.'
+        )
+    )
+)

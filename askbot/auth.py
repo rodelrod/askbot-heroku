@@ -111,7 +111,7 @@ def onUnFlaggedItem(post, user, timestamp=None):
     flagged_user = post.author
 
     flagged_user.receive_reputation(
-        - askbot_settings.REP_LOSS_FOR_RECEIVING_FLAG
+        askbot_settings.REP_LOSS_FOR_RECEIVING_FLAG
     )
     flagged_user.save()
 

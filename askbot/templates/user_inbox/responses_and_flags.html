@@ -28,9 +28,7 @@
     <div id="responses">
     {% for response in responses %}
         <div class="response-parent" data-response-id="{{response.id}}">
-            <p class="headline">
-                <strong>"{{ response.response_title.strip()|escape}}"</strong>
-            </p>
+            <h2>"{{ response.response_title.strip()|escape}}"</h2>
             {{ macros.inbox_post_snippet(response, inbox_section) }}
             {% for nested_response in response.nested_responses %}
                 {{ macros.inbox_post_snippet(nested_response, inbox_section) }}

@@ -1,8 +1,8 @@
 <span class="lang-nav">
-    <span>{{ settings.LANGUAGES_DICT[language_code] }}</span>
+    <span>{{ settings.LANGUAGES_DICT[current_language_code] }}</span>
     <ul>
     {% for lang in settings.LANGUAGES_DICT %}
-        {% if lang != language_code %}
+        {% if lang != current_language_code %}
         <li>
             <a 
                 href="/{{ lang }}/{{ settings.ASKBOT_URL }}"

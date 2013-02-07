@@ -1615,7 +1615,7 @@ var SelectBox = function(){
     this._items = [];
     this._select_handler = function(){};//empty default
     this._is_editable = false;
-    this._item_class = this.setItemClass(SelectBoxItem);
+    this._item_class = SelectBoxItem;
 };
 inherits(SelectBox, Widget);
 

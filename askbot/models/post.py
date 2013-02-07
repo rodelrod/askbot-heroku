@@ -206,14 +206,20 @@ class PostManager(BaseQuerySetManager):
 
         assert(post_type in const.POST_TYPES)
 
+        if thread:
+            language_code = thread.language_code
+        else:
+            language_code = get_language()
+
         post = Post(
-            post_type = post_type,
-            thread = thread,
-            parent = parent,
-            author = author,
-            added_at = added_at,
-            wiki = wiki,
-            text = text,
+            post_type=post_type,
+            thread=thread,
+            parent=parent,
+            author=author,
+            added_at=added_at,
+            wiki=wiki,
+            text=text,
+            language_code=language_code
             #.html field is denormalized by the save() call
         )
 
@@ -371,6 +377,7 @@ class Post(models.Model):
 
     html = models.TextField(null=True)#html rendition of the latest revision
     text = models.TextField(null=True)#denormalized copy of latest revision
+    language_code = models.CharField(max_length=16, default=django_settings.LANGUAGE_CODE)
 
     # Denormalised data
     summary = models.TextField(null=True)
@@ -581,6 +588,11 @@ class Post(models.Model):
         if askbot_settings.GROUPS_ENABLED:
             user_filter = user_filter & models.Q(groups__in=self.groups.all())
         return User.objects.filter(user_filter)
+
+    def get_last_edited_date(self):
+        """returns date of last edit or date of creation
+        if there were no edits"""
+        return self.last_edited_at or self.added_at
 
     def has_group(self, group):
         """true if post belongs to the group"""
@@ -2176,7 +2188,7 @@ class PostRevision(models.Model):
 
         if is_multilingual:
             request_language = get_language()
-            activate_language(self.thread.language_code)
+            activate_language(self.post.thread.language_code)
 
         if self.post.is_question():
             url = reverse('question_revisions', args = (self.post.id,))

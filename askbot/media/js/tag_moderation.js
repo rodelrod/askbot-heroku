@@ -86,9 +86,14 @@ PerThreadTagModerator.prototype.afterActionHandler = function() {
         ancestor.hideButtons();
         this.dispose();
     } else if (childCount == 0) {
-        var table = $('.suggested-tags-table');
-        table.before($('<p>' + gettext('No suggested tags left') + '</p>'));
-        table.remove();
+        //this does not work with the fade-out of table rows...
+        /* var callback = function() {
+            var table = $('.suggested-tags-table');
+            if (table.find('tr.suggested-tag-row').length == 0) {
+                table.before($('<p>' + gettext('No suggested tags left') + '</p>'));
+                table.remove();
+            }
+        }; */
         ancestor.dispose();
     } else {
         this.dispose();
@@ -164,7 +169,7 @@ AllThreadsTagModerator.prototype.afterActionHandler = function() {
 };
 
 AllThreadsTagModerator.prototype.dispose = function() {
-    this._tag_entry_element.fadeOut('fast', function() {
+    var eventChain = this._tag_entry_element.fadeOut('fast', function() {
         $.each(this._children, function(idx, child) {
             child.dispose();
         });
@@ -200,6 +205,7 @@ AllThreadsTagModerator.prototype.decorate = function(element) {
         var tagEntry = $(element);
         var tagId = tagEntry.data('tagId');
 
+        //handles the case where there are >1 threads per tag
         var tagMod = new AllThreadsTagModerator();
         tagMod.decorate(tagEntry.next());
         tagMod.setTagId(tagId);

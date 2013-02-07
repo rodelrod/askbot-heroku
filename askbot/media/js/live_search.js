@@ -744,6 +744,7 @@ FullTextSearch.prototype.updateToolTip = function() {
 
 /**
  * keydown handler operates on the tooltip and the X button
+ * also opens and closes drop menu according to the min search word threshold
  * keyup is not good enough, because in that case
  * tooltip will be displayed with the input box simultaneously
  */
@@ -765,14 +766,23 @@ FullTextSearch.prototype.makeKeyDownHandler = function() {
         var query = me.getSearchQuery();
         if (query.length === 0) {
             if (keyCode !== 8 && keyCode !== 48) {//del and backspace
-                toolTip.hide();
-                dropMenu.show();
-                dropMenu.showWaitIcon();
-                //xButton.show();//causes a jump of search input...
+                toolTip.hide();//hide tooltip
             }
         } else {
             me.updateToolTip();
             me.refreshXButton();
+            var minQueryLength = askbot['settings']['minSearchWordLength'];
+            if (query.length === minQueryLength) {
+                if (keyCode !== 8 && keyCode !== 48) {//del and backspace
+                    /* we get here if we were expanding the query
+                       past the minimum length to trigger search */
+                    dropMenu.show();
+                    dropMenu.showWaitIcon();
+                } else {
+                    //close drop menu if we were deleting the query
+                    dropMenu.reset();
+                }
+            }
         }
     };
 };

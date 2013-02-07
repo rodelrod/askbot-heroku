@@ -98,7 +98,7 @@
                 <tr>
                 <!--todo  - redo this with whole sentence translation -->
                     <td>{% trans %}age{% endtrans %}</td>
-                    <td>{{view_user.date_of_birth|get_age}} {% trans %}age unit{% endtrans %}</td>
+                    <td>{% trans age=view_user.date_of_birth|get_age%}{{ age }} years old{% endtrans %}</td>
                 </tr>
                 {% endif %}
                 {% if votes_today_left %}

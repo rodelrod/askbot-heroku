@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 
 FLATPAGES = ConfigurationGroup(
                 'FLATPAGES',
-                _('Flatpages - about, privacy policy, etc.'),
+                _('Messages and pages - about, privacy policy, etc.'),
                 super_group = CONTENT_AND_UI
             )
 
@@ -38,6 +38,19 @@ settings.register(
     )
 )
 
+settings.register(
+    LongStringValue(
+        FLATPAGES,
+        'QUESTION_INSTRUCTIONS',
+        description=_('Instrutions on how to ask questions'),
+        help_text=\
+        _(
+            'HTML is allowed. Save, then <a href="http://validator.w3.org/">'
+            'use HTML validator</a> on the "ask" page to check your input.'
+        )
+
+    )
+)
 
 settings.register(
     LongStringValue(
@@ -59,6 +72,7 @@ settings.register(#this field is not editable manually
         'CATEGORY_TREE',
         description = 'Category tree',#no need to translate
         default = '',#empty array of arrays in json
+        help_text=_('Do not edit this field manually!!!')
         #hidden = True
     )
 )

@@ -46,7 +46,7 @@
                             "{{settings.FEEDBACK_SITE_URL}}"
                             target="_blank">
                         {% else %}
-                            "{% url feedback %}?next={{request.path}}">
+                            "{% url feedback %}?next={{request.path|escape}}">
                         {% endif %}
                         {% trans %}give feedback{% endtrans %}
                     </a>

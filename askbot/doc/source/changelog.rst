@@ -3,6 +3,15 @@ Changes in Askbot
 
 Development version
 -------------------
+* Added full text support for some languages with Postgresql:
+  Danish, Dutch, English, Finnish, French, German, Hungarian,
+  Italian, Japanese (requires package textsearch_ja), Norwegian,
+  Portugese, Romanian, Russian, Spanish, Swedish, Turkish.
+  
+
+0.7.48 (Jan 28, 2013)
+---------------------
+* made "how to ask the question" instructions editable
 * added RSS auto-discovery link
 * added support for multilingual site (experimental)
 * tag subscription manager on the tags page (Adolfo)
